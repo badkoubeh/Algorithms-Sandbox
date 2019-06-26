@@ -13,6 +13,7 @@
 #include <bitset>
 #include<math.h>
 using namespace std;
+typedef pair<int, int> iPair;
 #pragma once
 #ifndef ISUNIQUECHARS_H_INCLUDED_
 #define ISUNIQUECHARS_H_INCLUDED_
@@ -84,19 +85,33 @@ void NearestPoints(vector<Point> &points, Point &origin, int k);
 #define GRAPH_H_INCLUDED_
 #define N 6 
 #define M 6 
+
+struct Subset
+{
+	int parent;
+	int rank;
+};
+
 class Edge
 {
 public:
 	int src, dest;
+	int weight = 1;
 };
 
 class Graph
 {
 private:
+	bool is_weighted_;
 	void DFSUtil(int source, bool visited[]);
+	void TopologicalSortUtil(int source, bool visited[], stack<int> &sorted_stack);
+	int find(int parent[], int i);
+	void unionUtil(int parent[], int x, int y);
+	bool isCyclicUtil(int v, bool visited[], bool *recStack);
 public:
 	// 1. graph can be represented as an array of adjacency list
 	list<int> *adj;
+	list<iPair> *adj_w;
 
 	// 2. graph can be represented as an 2D matrix
 
@@ -104,14 +119,16 @@ public:
 	Edge* edge;
 	// V-> Number of vertices, E-> Number of edges 
 	int V, E;
-	Graph(int V);
-	Graph(int V, int E);
-	void addEdge(int v, int w);
+	Graph(int V, bool is_weighted = false);	// to represent a graph by adjacency list 
+	Graph(int V, int E);	// to represent a graph by Edge structure
+	void addEdge(int v, int u, bool is_directed=false);
+	void addEdge(int v, int u, int w, bool is_directed = false);
 	void displayVertices();
 	void BFS(int source);
 	void DFS();
-	bool isCyclicUtil(int v, bool visited[], bool *recStack);
+	void TopologicalSort();
 	bool isCyclic();
+	bool isCycleUndirectedG();
 };
 
 class NodeInfo
@@ -236,7 +253,11 @@ void primeFactors(int n);
 
 #ifndef ALGORITHMS_H_INCLUDED_
 #define ALGORITHMS_H_INCLUDED_
-int Knapsak(int left_capacaity, int index, int W[], int V[]);
+void KruskalMST(Graph *graph);
+int find(Subset *subsets, int i);
+void Union(Subset *subsets, int x, int y);
+int CompOpr(const void* e1, const void* e2);
+void Dijkstra(list<iPair> *adj, int V, int source);
 #endif
 
 #ifndef PHONELEYPADPROBLEM_H_INCLUDED_
@@ -262,20 +283,4 @@ void PermutationRepetition(char set[], int k, int n);
 void permutationRepetitionUtil(char set[], string prefix, int n, int k);
 void swap(char *x, char *y);
 void permute(char *a, int l, int r);
-#endif
-
-#ifndef UNIONFIND_H_INCLUDED_
-#define UNIONFIND_H_INCLUDED_
-class UnionFind
-{
-	int *id, count, *size;
-
-public:
-	UnionFind(int n);
-	~UnionFind();
-	int findUtil(int p);
-	void unionUtil(int x, int y);
-	bool connected(int x, int y);
-
-};
 #endif

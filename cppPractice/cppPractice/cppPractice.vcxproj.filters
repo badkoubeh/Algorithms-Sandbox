@@ -87,9 +87,6 @@
     <ClCompile Include="WellknownProblems.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UnionFind.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">

@@ -1,5 +1,3 @@
 ﻿  Graph.cpp
-c:\users\babakbadkoubeh\google drive\programming\cpp\cpppractice\cpppractice\graph.cpp(177): warning C4101: 'parent': unreferenced local variable
-c:\users\babakbadkoubeh\google drive\programming\cpp\cpppractice\cpppractice\graph.cpp(16): warning C4700: uninitialized local variable 'graph' used
   WellknownProblems.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  cppPractice.vcxproj -> C:\Users\BabakBadkoubeh\Google Drive\Programming\cpp\cppPractice\Debug\cppPractice.exe
+  cppPractice.vcxproj -> C:\Users\BabakBadkoubeh\Source\Repos\badkoubeh\AlgorithmsCPP\cppPractice\Debug\cppPractice.exe

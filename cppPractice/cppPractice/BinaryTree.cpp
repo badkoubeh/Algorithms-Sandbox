@@ -338,7 +338,6 @@ TreeNode* inorderSuccessor(TreeNode* root, TreeNode* node)
 		else
 			break;
 	}
-
 	return succ;
 
 } // O(h) h = tree height
