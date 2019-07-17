@@ -3,7 +3,9 @@
 
 
 using namespace std;
-
+//************************************************************************************************************************************************
+// Graph definition and basic methods
+//************************************************************************************************************************************************
 Graph::Graph(int V, bool is_weighted): V(V)
 {
 	if (!is_weighted)
@@ -34,7 +36,7 @@ void Graph::addEdge(int v, int u, bool is_directed)
 void Graph::addEdge(int v, int u, int w, bool is_directed)
 {
 	if (is_directed)
-		adj_w[v].push_back(make_pair(w, u));
+		adj_w[v].push_back(make_pair(u, w));
 	else
 	{
 		adj_w[v].push_back(make_pair(u, w));
@@ -57,10 +59,12 @@ void Graph::displayVertices()
 	}
 		
 }
+//************************************************************************************************************************************************
+// Deep First Search /Traversal 
 void Graph::DFSUtil(int source, bool visited[])
 {
 	visited[source] = true;
-	cout << " vertix: " << source << "\t";
+	cout << source << "\t";
 
 	//Recur for all the vertices adjacent to this vertex
 	list<int>::iterator itr;
@@ -86,10 +90,13 @@ void Graph::DFS()
 	for (int i = 0; i < V; ++i)
 		if(!visited[i])
 			DFSUtil(i, visited);
+	cout << endl;
 }
-
 // time complexity O(V+E) 
 // In worst case for directed graphs, E= V(V-1) and undirected grpahs, E=V(V-1)/2 => O(V^2)
+
+//************************************************************************************************************************************************
+// Breath First Search/Traversal 
 void Graph::BFS(int source)
 {
 	//Mark all vertices as not visited
@@ -127,6 +134,8 @@ void Graph::BFS(int source)
 		}
 	}
 }
+//************************************************************************************************************************************************
+// Topological sorting
 
 // This sort is for Directed Acyclic Graphs (DAG) and is a linear ordering of vertices such that
 // for every directed edge(u,v), vetex u comes before v in the ordering. 
@@ -158,6 +167,7 @@ void Graph::TopologicalSortUtil(int v, bool visited[], stack<int> &sorted_stack)
 	sorted_stack.push(v);
 }// O(V+E)
 
+//************************************************************************************************************************************************
 // Cycle detection in a directed Graph-------------------------------------------------------------------------------------------------
 // This function is a variation of DFSUtil() in https://www.geeksforgeeks.org/archives/18212 
 bool Graph::isCyclicUtil(int v, bool *visited, bool *recStack)
@@ -205,7 +215,7 @@ bool Graph::isCyclic()
 
 	return false;
 }
-
+//************************************************************************************************************************************************
 // Cycle Detection in a undirected graph, Union Find Algorithm (assume there is no self-loop)
 // there is a more efficinet impelemntaiton of this algorithm in Algorithm.cpp
 bool Graph::isCycleUndirectedG()
@@ -247,77 +257,3 @@ void Graph::unionUtil(int parent[], int x, int y)
 // for undirected graph we can also use DFS with visited array and passing parent value for cycle detection O(V+E)
 // bool isCycleUndirectedGUtil(int source, bool viisted[], int parent)
 
-
-
-NodeInfo::NodeInfo(int x, int y, int d): row(x), col(y), dist(d){}
-
-int MinDistance(char grid[N][M])
-{
-	NodeInfo source(0, 0, 0);
-
-	// mark danger spots at true so we won't visit
-	bool visited[N][M];
-
-	for (int i = 0; i < N; ++i)
-	{
-		for (int j = 0; j < M; ++j)
-		{
-			if (grid[i][j] == '0')
-				visited[i][j] = true;
-			else
-				visited[i][j] = false;
-
-			//Finding source
-			if (grid[i][j] == 's')
-			{
-				visited[i][j] = true;
-				source.row = i;
-				source.col = j;
-			}
-		}
-	}
-
-	// Applying BFS on matrix cells from source
-	queue<NodeInfo> cell_q;
-	cell_q.push(source);
-
-	while (!cell_q.empty())
-	{
-		NodeInfo point = cell_q.front();
-		cell_q.pop();
-
-		//Destination found conditon
-		if (grid[point.row][point.col] == 'd')
-			return point.dist;
-
-		// moving up
-		if ((point.row -1) >= 0 && !visited[point.row -1][point.col])
-		{
-			cell_q.push(NodeInfo(point.row - 1, point.col, point.dist + 1));
-			visited[point.row - 1][point.col] = true;
-		}
-
-		// moving down
-		if ((point.row + 1) < N && !visited[point.row + 1][point.col])
-		{
-			cell_q.push(NodeInfo(point.row + 1, point.col, point.dist + 1));
-			visited[point.row + 1][point.col] = true;
-		}
-
-		//moving left
-		if ((point.col - 1) >= 0 && !visited[point.row][point.col -1])
-		{
-			cell_q.push(NodeInfo(point.row, point.col - 1, point.dist + 1));
-			visited[point.row][point.col -1] = true;
-		}
-
-		//moving right
-		if ((point.col + 1) < M && !visited[point.row][point.col + 1])
-		{
-			cell_q.push(NodeInfo(point.row, point.col + 1, point.dist + 1));
-			visited[point.row][point.col + 1] = true;
-		}
-	}
-	return -1;
-
-}

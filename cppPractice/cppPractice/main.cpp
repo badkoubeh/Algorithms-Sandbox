@@ -229,20 +229,27 @@ void main()
 	*/
 	
 	//Graph
-	//Graph g(4);
-	//g.addEdge(0, 1);
-	//g.addEdge(0, 2);
-	//g.addEdge(1, 2);
-	//g.addEdge(2, 0);
-	//g.addEdge(2, 3);
-	//g.addEdge(3, 3);
+	/*Graph *g = new Graph(9);
+	g->addEdge(0, 1);
+	g->addEdge(0, 7);
+	g->addEdge(1, 2);
+	g->addEdge(1, 7);
+	g->addEdge(2, 3);
+	g->addEdge(2, 8);
+	g->addEdge(2, 5);
+	g->addEdge(3, 4);
+	g->addEdge(3, 5);
+	g->addEdge(4, 5);
+	g->addEdge(5, 6);
+	g->addEdge(6, 7);
+	g->addEdge(6, 8);
+	g->addEdge(7, 8);*/
 	////g.displayVertices();
 	//cout << "Following is Breadth First Traversal ";
 	//g.BFS(2);			// O(V+E) tim ecomplexity
 	//cout << endl;
 	//cout << "Following is Deep First Traversal \n";
-	//g.DFS();	//O(V +E)
-	//cout << endl;
+	//g->DFS();	//O(V +E)
 	
 	/*
 	// find shortest path on a map
@@ -275,6 +282,7 @@ void main()
 
 	Dijkstra(g.adj_w, V, 0);*/
 
+//********************************************************************************************************************************************
 	//Kruskal Minimum spanning tree
 	 /* Let us create following weighted graph
 			 10
@@ -284,32 +292,98 @@ void main()
 		|      \ |
 		2--------3
 			4       */
-	int V = 4;  // Number of vertices in graph 
-	int E = 5;  // Number of edges in graph 
-	Graph *g = new Graph(V, E);
+	//int V = 4;  // Number of vertices in graph 
+	//int E = 5;  // Number of edges in graph 
+	//Graph *g = new Graph(V, E);
+	//
+	//g->edge[0].src = 0;
+	//g->edge[0].dest = 1;
+	//g->edge[0].weight = 10;
+
+	//g->edge[1].src = 0;
+	//g->edge[1].dest = 2;
+	//g->edge[1].weight = 6;
+
+	//g->edge[2].src = 0;
+	//g->edge[2].dest = 3;
+	//g->edge[2].weight = 5;
+
+	//g->edge[3].src = 1;
+	//g->edge[3].dest = 3;
+	//g->edge[3].weight = 15;
+
+	//g->edge[4].src = 2;
+	//g->edge[4].dest = 3;
+	//g->edge[4].weight = 4;
+
+	//KruskalMST(g);
+
+//************************************************************************************************************************************************
+	// Prim's MST
+	/*int V = 9;
+	bool is_weighted = true;
+	Graph *g = new Graph(V,is_weighted);
+	g->addEdge(0, 1, 4);
+	g->addEdge(0, 7, 8);
+	g->addEdge(1, 2, 8);
+	g->addEdge(1, 7, 11);
+	g->addEdge(2, 3, 7);
+	g->addEdge(2, 8, 2);
+	g->addEdge(2, 5, 4);
+	g->addEdge(3, 4, 9);
+	g->addEdge(3, 5, 14);
+	g->addEdge(4, 5, 10);
+	g->addEdge(5, 6, 2);
+	g->addEdge(6, 7, 1);
+	g->addEdge(6, 8, 6);
+	g->addEdge(7, 8, 7);
+
+	PrimMST(g->adj_w, g->V);*/
+
+//************************************************************************************************************************************************
+	// Hamiltonina Cycle
+	  /* 
+		(0)--(1)--(2)
+		|	       |
+		|		   |
+		|          |
+		(3)-------(4) 
+		*/
+	bool g1[5][5] = { {0, 1, 0, 1, 0},
+						{1, 0, 1, 1, 1},
+						{0, 1, 0, 0, 1},
+						{1, 1, 0, 0, 1},
+						{0, 1, 1, 1, 0} };
+	/*
+	(0)--(1)--(2)
+	|   / \   |
+	|  /   \  |
+	| /     \ |
+	(3)      (4)		*/
+
+	bool g2[5][5] = { {0, 1, 0, 1, 0},
+					{1, 0, 1, 1, 1},
+					{0, 1, 0, 0, 1},
+					{1, 1, 0, 0, 0},
+					{0, 1, 1, 0, 0} };
+	//HamiltonianCycle(g1, 5);
 	
-	g->edge[0].src = 0;
-	g->edge[0].dest = 1;
-	g->edge[0].weight = 10;
+	Grph g(6);
+	g.addEdge(0, 1, 5);
+	g.addEdge(0, 2, 3);
+	g.addEdge(1, 3, 6);
+	g.addEdge(1, 2, 2);
+	g.addEdge(2, 4, 4);
+	g.addEdge(2, 5, 2);
+	g.addEdge(2, 3, 7);
+	g.addEdge(3, 5, 1);
+	g.addEdge(3, 4, -1);
+	g.addEdge(4, 5, -2);
 
-	g->edge[1].src = 0;
-	g->edge[1].dest = 2;
-	g->edge[1].weight = 6;
+	int s = 1;
+	g.LongestPath(s);
 
-	g->edge[2].src = 0;
-	g->edge[2].dest = 3;
-	g->edge[2].weight = 5;
-
-	g->edge[3].src = 1;
-	g->edge[3].dest = 3;
-	g->edge[3].weight = 15;
-
-	g->edge[4].src = 2;
-	g->edge[4].dest = 3;
-	g->edge[4].weight = 4;
-
-	KruskalMST(g);
-
+//************************************************************************************************************************************************
 	/*unsigned char h1 = 0xffff;
 	unsigned char h2 = 0xfffe;
 	cout << isConsequitiveGrayCode(h1, h2) << endl;

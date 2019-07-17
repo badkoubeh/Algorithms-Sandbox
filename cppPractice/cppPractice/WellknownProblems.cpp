@@ -23,3 +23,6 @@ int Knapsak(int left_capacaity, int index, int W[], int V[])
 
 // Pattern Searching
 // 2. Anagram substring Search (search fro all permutations)
+
+
+

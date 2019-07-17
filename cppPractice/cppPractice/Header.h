@@ -13,6 +13,8 @@
 #include <bitset>
 #include<math.h>
 using namespace std;
+#define NINF INT_MIN
+#define INF INT_MAX
 typedef pair<int, int> iPair;
 #pragma once
 #ifndef ISUNIQUECHARS_H_INCLUDED_
@@ -130,17 +132,6 @@ public:
 	bool isCyclic();
 	bool isCycleUndirectedG();
 };
-
-class NodeInfo
-{
-public:
-	int row;
-	int col;
-	int dist;
-	NodeInfo(int x, int y, int d);
-};
-
-int MinDistance(char grid[N][M]);
 #endif
 
 #ifndef LINKEDLIST_H_INCLUDED_
@@ -253,11 +244,15 @@ void primeFactors(int n);
 
 #ifndef ALGORITHMS_H_INCLUDED_
 #define ALGORITHMS_H_INCLUDED_
+void PrimMST(list<iPair> *adj, int V);
 void KruskalMST(Graph *graph);
 int find(Subset *subsets, int i);
 void Union(Subset *subsets, int x, int y);
 int CompOpr(const void* e1, const void* e2);
 void Dijkstra(list<iPair> *adj, int V, int source);
+void HamiltonianCycle(bool graph[5][5], int V);
+bool HamiltonianCycleUtil(bool graph[5][5], int V, vector<int> &path, int i_path);
+bool isValid(bool graph[5][5], vector<int> &path, int i_path, int v);
 #endif
 
 #ifndef PHONELEYPADPROBLEM_H_INCLUDED_
@@ -283,4 +278,36 @@ void PermutationRepetition(char set[], int k, int n);
 void permutationRepetitionUtil(char set[], string prefix, int n, int k);
 void swap(char *x, char *y);
 void permute(char *a, int l, int r);
+#endif
+
+#ifndef GRAPHPROBLEMS_H_INCLUDED_
+#define GRAPHPROBLEMS_H_INCLUDED_
+class AdjList {
+public:
+	int v;
+	int weight;
+	AdjList(int vertex, int w) : v(vertex), weight(w) {}
+};
+class Grph {
+private:
+	int V;
+	list<AdjList> *adj;
+	void topologicalSortUtil(int v, bool visited[], stack<int> &stack)
+	{
+		visited[v] = true;
+
+		for (auto itr = adj[v].begin(); itr != adj[v].end(); ++itr)
+		{
+			AdjList node = *itr;
+			if (!visited[node.v])
+				topologicalSortUtil(node.v, visited, stack);
+		}
+		stack.push(v);
+	}
+public:
+	Grph(int v);
+	void addEdge(int u, int v, int w);
+	void LongestPath(int s);
+};
+int MinDistance(char grid[N][M]);
 #endif

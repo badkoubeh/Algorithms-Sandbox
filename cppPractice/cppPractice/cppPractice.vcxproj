@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GraphProblems.cpp" />
     <ClCompile Include="WellknownProblems.cpp" />
     <ClCompile Include="Algorithms.cpp" />
     <ClCompile Include="basicMathOperations.cpp" />
